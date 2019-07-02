@@ -79,8 +79,8 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // return self.tweetsArray.count;
-    return 19;
+    return self.tweetsArray.count;
+    // return 19;
 }
 
 - (void)didReceiveMemoryWarning {
