@@ -14,9 +14,12 @@
     self = [super init]; // allows superclass to initialize and can return nil
     if (self) {
         self.name = dictionary[@"name"];
-        self.screenName = dictionary[@"screen_name"];
+        NSString *atSymbol = @"@";
+        NSString *profileName = dictionary[@"screen_name"];
+        self.screenName = [atSymbol stringByAppendingString: profileName];
+        self.profileImage = dictionary[@"profile_image_url_https"];
         
-        // Initialize any other properties
+        // Initialize any other propertieså
     }
     return self;
 }
