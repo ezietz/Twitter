@@ -30,6 +30,7 @@
             
             // Add a property for the array of tweets and set it when the network call succeeds.
             NSLog(@"posted tweet!");
+            [self.delegate didTweet:tweet];
             [self dismissViewControllerAnimated:true completion:nil];
             
         }

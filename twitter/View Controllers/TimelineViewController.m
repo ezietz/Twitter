@@ -16,7 +16,7 @@
 
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeViewControllerDelegate>
 
-@property (strong, nonatomic) NSArray *tweetsArray;
+@property (strong, nonatomic) NSMutableArray *tweetsArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -105,19 +105,9 @@
 
 
 - (void)didTweet:(nonnull Tweet *)tweet {
-    <#code#>
+    [self.tweetsArray addObject:tweet];
+    [self.tableView reloadData];
 }
 
-- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
-    <#code#>
-}
-
-- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
-    <#code#>
-}
-
-- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
-    <#code#>
-}
 
 @end
