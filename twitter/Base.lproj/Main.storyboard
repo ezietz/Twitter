@@ -176,7 +176,11 @@
                                 <action selector="closeButton:" destination="8DL-KI-V8F" id="3Kg-1r-JUt"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="zFZ-tm-c4N"/>
+                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="zFZ-tm-c4N">
+                            <connections>
+                                <action selector="tweetButton:" destination="8DL-KI-V8F" id="9by-W9-O9d"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="composedTweet" destination="EVr-Jc-Wgm" id="Tc7-0m-H9g"/>

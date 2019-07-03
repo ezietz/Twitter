@@ -12,8 +12,9 @@
 #import "Tweet.h"
 #import "User.h"
 #import "UIImageView+AFNetworking.h"
+#import "ComposeViewController.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeViewControllerDelegate>
 
 @property (strong, nonatomic) NSArray *tweetsArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -27,6 +28,8 @@
     [super viewDidLoad];
     self.tableView.dataSource = self; // data Source for tableview is the object that gives the table view the thing it'll display
     self.tableView.delegate = self; // delegate responds to touch events, how many things to make
+    
+    [self fetchTweets];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchTweets) forControlEvents:UIControlEventValueChanged];
@@ -88,14 +91,33 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+
+
+
+// #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    UINavigationController *navigationController = [segue destinationViewController];
+    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+    composeController.delegate = self;
 }
-*/
+
+
+- (void)didTweet:(nonnull Tweet *)tweet {
+    <#code#>
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
+    <#code#>
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    <#code#>
+}
+
+- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+    <#code#>
+}
 
 @end

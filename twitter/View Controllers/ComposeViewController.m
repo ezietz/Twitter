@@ -7,6 +7,8 @@
 //
 
 #import "ComposeViewController.h"
+#import "APIManager.h"
+#import "Tweet.h"
 
 @interface ComposeViewController ()
 
@@ -21,6 +23,21 @@
 - (IBAction)closeButton:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
+- (IBAction)tweetButton:(id)sender {
+    //[[APIManager shared] postStatusWithText:(NSString *) completion:^(Tweet *, NSError *) {
+    [[APIManager shared] postStatusWithText: self.composedTweet.text completion:^(Tweet * tweet, NSError * error) {
+        if (tweet) {
+            
+            // Add a property for the array of tweets and set it when the network call succeeds.
+            NSLog(@"posted tweet!");
+            [self dismissViewControllerAnimated:true completion:nil];
+            
+        }
+        else {
+            NSLog(@"failed to post tweet: %@", error.localizedDescription);
+        }
+    }];
+    }
 
 /*
 #pragma mark - Navigation
