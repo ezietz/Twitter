@@ -153,7 +153,11 @@
                         <viewLayoutGuide key="safeArea" id="ugE-Ul-H9I"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home Timeline" id="MOc-fV-EZE">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="hht-DS-hcE"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="hht-DS-hcE">
+                            <connections>
+                                <action selector="clickedLogout:" destination="N05-Qz-cbX" id="Spe-9z-qwc"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Compose" id="Yjo-uL-gaD">
                             <connections>
                                 <segue destination="LDP-Ma-hmg" kind="presentation" id="3vf-Ig-VIV"/>
@@ -165,6 +169,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQh-hN-GQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="N05-Qz-cbX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1660" y="36.431784107946029"/>
         </scene>

@@ -9,6 +9,8 @@
 #import "TweetCell.h"
 #import "APIManager.h"
 #import "UIImageView+AFNetworking.h"
+#import "AppDelegate.h"
+#import "LoginViewController.h"
 
 @implementation TweetCell
 
@@ -22,6 +24,15 @@
 
     // Configure the view for the selected state
 }
+- (IBAction)clickedLogout:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    [[APIManager shared] logout];
+}
+
 - (IBAction)didTapRetweet:(id)sender {
     if (self.tweet.retweeted == NO) {
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
@@ -54,35 +65,25 @@
 }
 - (IBAction)didTapLike:(id)sender {
     
-    if (self.tweet.favorited == NO) {
-        [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+    [[APIManager shared] favoriteTweet:self.tweet withState:self.tweet.favorited andCompletion:^(Tweet *tweet, BOOL hasFavored, NSError *error) {
+        if(error){
+            NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+            if (hasFavored) {
+                self.tweet.favorited = NO;
+                self.tweet.favoriteCount -= 1;
+                [self.favorIcon setSelected:NO];
             }
-            else{
-                NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-            } }];
-        self.tweet.favorited = YES;
-        self.tweet.favoriteCount += 1;
-        [self.favorIcon setSelected:YES];
-        [self refreshData];
-        
-    }
-    
-    else{
-        [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
+            else {
+                self.tweet.favorited = YES;
+                self.tweet.favoriteCount += 1;
+                [self.favorIcon setSelected:YES];
             }
-            else{
-                NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
-            } }];
-        
-        self.tweet.favorited = NO;
-        self.tweet.favoriteCount += -1;
-        [self.favorIcon setSelected:NO];
-        [self refreshData];
-    }
+            [self refreshData];
+        }
+    }];
 }
 
 - (void) refreshData {
