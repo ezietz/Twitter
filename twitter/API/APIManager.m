@@ -113,38 +113,26 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
     }];
 }
 
-- (void)retweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion{
+- (void)retweet: (Tweet *)tweet withState:(BOOL)retweeted andCompletion:(void (^)(Tweet *, NSError *))completion{
     
-    NSString *urlString = @"1.1/statuses/retweet/";
-    NSString *idString = tweet.idStr;
-    NSString *actualString = [urlString stringByAppendingString:idString];
-    NSString *addendingString = @".json";
-    NSString *fullString = [actualString stringByAppendingString:addendingString];
+    NSString *actualString = [[NSString alloc] init];
+    
+    if (!retweeted) {
+        actualString = [@"1.1/statuses/retweet/" stringByAppendingString:tweet.idStr];
+    } else {
+        actualString = [@"1.1/statuses/unretweet/" stringByAppendingString:tweet.idStr];
+    }
+    
+    NSString *fullString = [actualString stringByAppendingString:@".json"];
     NSDictionary *parameters = @{@"id": tweet.idStr};
+    
     [self POST:fullString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
+        
         Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
         completion(tweet, nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completion(nil, error);
     }];
 }
-
-- (void)unretweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion{
-    
-    NSString *urlString = @"1.1/statuses/unretweet/";
-    NSString *idString = tweet.idStr;
-    NSString *actualString = [urlString stringByAppendingString:idString];
-    NSString *addendingString = @".json";
-    NSString *fullString = [actualString stringByAppendingString:addendingString];
-    NSDictionary *parameters = @{@"id": tweet.idStr};
-    [self POST:fullString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
-        Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
-        completion(tweet, nil);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        completion(nil, error);
-    }];
-}
-
-
 
 @end

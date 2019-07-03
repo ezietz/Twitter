@@ -26,35 +26,29 @@
 }
 
 - (IBAction)didTapRetweet:(id)sender {
-    if (self.tweet.retweeted == NO) {
-        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
-            }
-            else{
-                NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-            } }];
-        self.tweet.retweeted = YES;
-        self.tweet.retweetCount += 1;
-        [self.retweetIcon setSelected:YES];
-        [self refreshData];
-    }
-    else{
-        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
-            }
-            else{
+    [[APIManager shared] retweet:self.tweet withState:self.tweet.retweeted andCompletion:^(Tweet *tweet, NSError *error) {
+        if(error){
+            NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
+            
+            if (self.tweet.retweeted) {
+                self.tweet.retweeted = NO;
+                self.tweet.retweetCount -= 1;
+                [self.retweetIcon setSelected:NO];
                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
-            } }];
-        
-        self.tweet.retweeted = NO;
-        self.tweet.retweetCount += -1;
-        [self.retweetIcon setSelected:NO];
-        [self refreshData];
-    }
-    
+            }
+            else {
+                self.tweet.retweeted = YES;
+                self.tweet.retweetCount += 1;
+                [self.retweetIcon setSelected:YES];
+            }
+            [self refreshData];
+        }
+    }];
 }
+
 - (IBAction)didTapLike:(id)sender {
     
     [[APIManager shared] favoriteTweet:self.tweet withState:self.tweet.favorited andCompletion:^(Tweet *tweet, BOOL hasFavored, NSError *error) {
@@ -67,6 +61,7 @@
                 self.tweet.favorited = NO;
                 self.tweet.favoriteCount -= 1;
                 [self.favorIcon setSelected:NO];
+                NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
             }
             else {
                 self.tweet.favorited = YES;
