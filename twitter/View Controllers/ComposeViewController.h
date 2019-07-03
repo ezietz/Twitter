@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// whoever conforms to this protocol must have this method
+// protocol allows us to send data back to the base controller
 @protocol ComposeViewControllerDelegate
 
 - (void)didTweet:(Tweet *)tweet;

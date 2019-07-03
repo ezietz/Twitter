@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // view controller becomes table view's dataSource and delegate in viewDidLoad
     self.tableView.dataSource = self; // data Source for tableview is the object that gives the table view the thing it'll display
     self.tableView.delegate = self; // delegate responds to touch events, how many things to make
     
@@ -41,11 +42,16 @@
 }
 
 - (void) fetchTweets {
+    // [APIManager shared] grabs an instance of the API Manager
+    // make an API request
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+        // API manager calls the completion handler passing back data
         if (tweets) {
+             // numberOfRowsInSection returns the number of items returned from the API
             
-            // Add a property for the array of tweets and set it when the network call succeeds.
+            // View controller stores that data passed into the completion handler
             self.tweetsArray = tweets;
+            // Reload the table view
             [self.tableView reloadData];
             /*
              NSLog(@"😎😎😎 Successfully loaded home timeline");
@@ -65,11 +71,13 @@
     }];
 }
 
+// table view asks its dataSource for numberOfRowsInSection and cellForRowAtIndexPath
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    // cellForRowAtIndexPath returns an instance of the custom cell with that reuse identifier with its elements populated with data at the index asked for
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     Tweet *tweet = self.tweetsArray[indexPath.row];
+    cell.tweet = tweet;
     User *tweetUser = tweet.user;
-
     cell.authorView.text = tweetUser.name;
     cell.userView.text = tweetUser.screenName;
     cell.dateView.text = tweet.createdAtString;
@@ -90,18 +98,15 @@
     return cell;
 }
 
+ // numberOfRowsInSection returns the number of items returned from the API
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.tweetsArray.count;
-    // return 19;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
 
 // #pragma mark - Navigation
 
