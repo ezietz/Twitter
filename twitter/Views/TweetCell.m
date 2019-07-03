@@ -24,20 +24,12 @@
 
     // Configure the view for the selected state
 }
-- (IBAction)clickedLogout:(id)sender {
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    appDelegate.window.rootViewController = loginViewController;
-    [[APIManager shared] logout];
-}
 
 - (IBAction)didTapRetweet:(id)sender {
     if (self.tweet.retweeted == NO) {
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
-                NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+                NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
             }
             else{
                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
@@ -50,7 +42,7 @@
     else{
         [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
-                NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+                NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
             }
             else{
                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);

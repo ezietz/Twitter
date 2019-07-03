@@ -13,6 +13,8 @@
 #import "User.h"
 #import "UIImageView+AFNetworking.h"
 #import "ComposeViewController.h"
+#import "AppDelegate.h"
+#import "LoginViewController.h"
 
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeViewControllerDelegate>
 
@@ -86,6 +88,15 @@
  // numberOfRowsInSection returns the number of items returned from the API
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.tweetsArray.count;
+}
+- (IBAction)clickedLogout:(id)sender {
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    [[APIManager shared] logout];
 }
 
 - (void)didReceiveMemoryWarning {

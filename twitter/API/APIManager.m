@@ -97,7 +97,6 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
     }];
 }
 
-
 - (void)favoriteTweet: (Tweet *)tweet withState:(BOOL)favorited andCompletion:(void (^)(Tweet *,BOOL,NSError *))completion{
     NSString *urlString = [[NSString alloc] init];
     if (!favorited) {
