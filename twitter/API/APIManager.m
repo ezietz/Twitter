@@ -131,7 +131,7 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
 
 - (void)unretweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion{
     
-    NSString *urlString = @"1.1/statuses/retweet/";
+    NSString *urlString = @"1.1/statuses/unretweet/";
     NSString *idString = tweet.idStr;
     NSString *actualString = [urlString stringByAppendingString:idString];
     NSString *addendingString = @".json";
