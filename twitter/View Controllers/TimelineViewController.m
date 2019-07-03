@@ -78,23 +78,8 @@
     Tweet *tweet = self.tweetsArray[indexPath.row];
     cell.tweet = tweet;
     User *tweetUser = tweet.user;
-    cell.authorView.text = tweetUser.name;
-    cell.userView.text = tweetUser.screenName;
-    cell.dateView.text = tweet.createdAtString;
-    cell.tweetView.text = tweet.text;
-    [cell.favorIcon setImage: [UIImage imageNamed:@"favor-icon"]
-                    forState: UIControlStateNormal];
-    [cell.favorIcon setImage: [UIImage imageNamed:@"favor-icon-red"]
-                    forState: UIControlStateSelected];
-    [cell.retweetIcon setImage: [UIImage imageNamed:@"retweet-icon"]
-                    forState: UIControlStateNormal];
-    [cell.retweetIcon setImage: [UIImage imageNamed:@"retweet-icon-green"]
-                      forState: UIControlStateSelected];
     
-    NSString *profileImageURL = tweetUser.profileImage;
-    NSURL *imageURL = [NSURL URLWithString:profileImageURL];
-    [cell.posterView setImageWithURL:imageURL];
-    
+    [cell refreshData];    
     return cell;
 }
 

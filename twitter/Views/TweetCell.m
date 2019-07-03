@@ -8,6 +8,7 @@
 
 #import "TweetCell.h"
 #import "APIManager.h"
+#import "UIImageView+AFNetworking.h"
 
 @implementation TweetCell
 
@@ -56,6 +57,24 @@
 }
 
 - (void) refreshData {
+    
+    User *tweetUser = self.tweet.user;
+    self.authorView.text = tweetUser.name;
+    self.userView.text = tweetUser.screenName;
+    self.dateView.text = self.tweet.createdAtString;
+    self.tweetView.text = self.tweet.text;
+    [self.favorIcon setImage: [UIImage imageNamed:@"favor-icon"]
+                    forState: UIControlStateNormal];
+    [self.favorIcon setImage: [UIImage imageNamed:@"favor-icon-red"]
+                    forState: UIControlStateSelected];
+    [self.retweetIcon setImage: [UIImage imageNamed:@"retweet-icon"]
+                      forState: UIControlStateNormal];
+    [self.retweetIcon setImage: [UIImage imageNamed:@"retweet-icon-green"]
+                      forState: UIControlStateSelected];
+    
+    NSString *profileImageURL = tweetUser.profileImage;
+    NSURL *imageURL = [NSURL URLWithString:profileImageURL];
+    [self.posterView setImageWithURL:imageURL];
     
 }
 

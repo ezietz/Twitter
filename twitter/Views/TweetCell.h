@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *retweetIcon;
 
 @property (strong, nonatomic) Tweet *tweet;
+- (void) refreshData;
 
 @end
 
