@@ -80,6 +80,8 @@
     self.userView.text = tweetUser.screenName;
     self.dateView.text = self.tweet.createdAtString;
     self.tweetView.text = self.tweet.text;
+    self.rtCount.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
+    self.heartCount.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
     [self.favorIcon setImage: [UIImage imageNamed:@"favor-icon"]
                     forState: UIControlStateNormal];
     [self.favorIcon setImage: [UIImage imageNamed:@"favor-icon-red"]
