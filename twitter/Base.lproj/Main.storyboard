@@ -130,6 +130,9 @@
                                                     <rect key="frame" x="226" y="101" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="retweet-icon"/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="DWV-Yb-pAb" eventType="touchUpInside" id="aLU-j9-rtG"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
