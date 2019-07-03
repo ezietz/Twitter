@@ -118,12 +118,27 @@
                                                     <rect key="frame" x="15" y="11" width="75" height="69"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JeT-Hc-kND">
+                                                    <rect key="frame" x="172" y="101" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="favor-icon"/>
+                                                    <connections>
+                                                        <action selector="didTapLike:" destination="DWV-Yb-pAb" eventType="touchUpInside" id="S2Y-Ms-alK"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tm5-BK-PcA">
+                                                    <rect key="frame" x="226" y="101" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="retweet-icon"/>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="authorView" destination="rcz-lC-Aur" id="BhT-xn-47N"/>
                                             <outlet property="dateView" destination="c3B-Ew-6cY" id="XDA-nX-3ha"/>
+                                            <outlet property="favorIcon" destination="JeT-Hc-kND" id="rKm-f2-JHF"/>
                                             <outlet property="posterView" destination="nby-53-WGO" id="wt9-Ub-9dO"/>
+                                            <outlet property="retweetIcon" destination="tm5-BK-PcA" id="TGS-CJ-mOa"/>
                                             <outlet property="tweetView" destination="tqh-B7-O9s" id="aaK-F9-WEo"/>
                                             <outlet property="userView" destination="tv5-TP-BNB" id="LFE-4O-Uap"/>
                                         </connections>
@@ -229,5 +244,7 @@
     </scenes>
     <resources>
         <image name="TwitterLogoBlue" width="200" height="200"/>
+        <image name="favor-icon" width="30" height="30"/>
+        <image name="retweet-icon" width="30" height="30"/>
     </resources>
 </document>
