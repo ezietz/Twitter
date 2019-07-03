@@ -39,8 +39,6 @@
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     
     // Get timeline
-    
-    
 }
 
 - (void) fetchTweets {
@@ -89,6 +87,7 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.tweetsArray.count;
 }
+
 - (IBAction)clickedLogout:(id)sender {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -104,18 +103,15 @@
 
 // #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UINavigationController *navigationController = [segue destinationViewController];
     ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
     composeController.delegate = self;
 }
 
-
 - (void)didTweet:(nonnull Tweet *)tweet {
     [self.tweetsArray addObject:tweet];
     [self.tableView reloadData];
 }
-
 
 @end
