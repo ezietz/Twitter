@@ -50,7 +50,6 @@
 }
 
 - (IBAction)didTapLike:(id)sender {
-    
     [[APIManager shared] favoriteTweet:self.tweet withState:self.tweet.favorited andCompletion:^(Tweet *tweet, BOOL hasFavored, NSError *error) {
         if(error){
             NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
