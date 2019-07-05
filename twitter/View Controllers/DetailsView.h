@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DetailsView : UIViewController
 
 @property (nonatomic, strong) Tweet *tweet;
+@property (weak, nonatomic) IBOutlet UILabel *heartCount;
+@property (weak, nonatomic) IBOutlet UILabel *rtCount;
 
 @end
 

@@ -43,7 +43,8 @@
     
     [self.favorIcon setTitle:[NSString stringWithFormat:@"%d",self.tweet.favoriteCount] forState:UIControlStateNormal];
     [self.retweetIcon setTitle:[NSString stringWithFormat:@"%d",self.tweet.retweetCount] forState:UIControlStateNormal];
-    
+    self.rtCount.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
+    self.heartCount.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
     NSString *profileImg = user.profileImage;
     NSURL *profileURL = [NSURL URLWithString:profileImg];
     self.profileView.image = nil;
@@ -59,15 +60,6 @@
                       forState: UIControlStateSelected];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 - (IBAction)didTapHeart:(id)sender {
     [[APIManager shared] favoriteTweet:self.tweet withState:self.tweet.favorited andCompletion:^(Tweet *tweet, BOOL hasRetweeted, NSError *error) {
         if(error){
@@ -114,3 +106,4 @@
     }];
 }
 @end
+
