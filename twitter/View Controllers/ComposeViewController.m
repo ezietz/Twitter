@@ -12,6 +12,8 @@
 
 @interface ComposeViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *charCount;
+
 @end
 
 @implementation ComposeViewController
@@ -24,12 +26,14 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    int characterLimit = 280;
+    int characterLimit = 140;
 
     // Construct what the new text would be if we allowed the user's latest edit
     NSString *newText = [self.composedTweet.text stringByReplacingCharactersInRange:range withString:text];
+    int restChars = characterLimit - newText.length;
+    self.charCount.text = [NSString stringWithFormat:@"%d", restChars];
+    return (newText.length < characterLimit);
     
-    return newText.length < characterLimit;
 }
 
 - (IBAction)closeButton:(id)sender {
