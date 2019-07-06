@@ -54,7 +54,7 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. We could extend the app by embedding images in the tweet if they are available.
+1. I could extend the app by embedding images in the tweet if they are available.
 2. I'd also like to talk about how we can make the links in the tweets clickable.
 
 ## Video Walkthrough
