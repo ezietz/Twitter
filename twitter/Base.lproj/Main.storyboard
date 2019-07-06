@@ -359,7 +359,7 @@
                         <viewLayoutGuide key="safeArea" id="BTf-HC-LoS"/>
                     </view>
                     <navigationItem key="navigationItem" id="kQj-Dm-tkl">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="cCO-ur-dFv">
+                        <barButtonItem key="leftBarButtonItem" title="X" id="cCO-ur-dFv">
                             <connections>
                                 <action selector="closeButton:" destination="8DL-KI-V8F" id="3Kg-1r-JUt"/>
                             </connections>
