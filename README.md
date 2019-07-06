@@ -50,12 +50,12 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [X] Customize the UI
+- [X] Customized the UI
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. We could extend the app by embedding images in the tweet if they are available.
+2. I'd also like to talk about how we can make the links in the tweets clickable.
 
 ## Video Walkthrough
 
@@ -67,7 +67,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I found AutoLayout challenging at first, especially on the labels, but after watching the video, and clearing the constraints and trying again, I was able to understand it. Also, getting the infinite scroll view was quite hard, because I had to obtain the ID string of the tweet and reload the next 20 tweets. After reading the API documentation and talking to my pod members about it, I understood what I needed to do and was able to implement it.
 
 ## Credits
 
@@ -77,7 +77,7 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2019] [Elizabeth Zietz]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
