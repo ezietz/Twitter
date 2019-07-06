@@ -10,8 +10,10 @@
 #import "Tweet.h"
 
 static NSString * const baseURLString = @"https://api.twitter.com";
-static NSString * const consumerKey = @"5lUJuO5AUpPUCez4ewYDFrtgh";
-static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv1o2TKhS1avCdS";
+//static NSString * const consumerKey = @"5lUJuO5AUpPUCez4ewYDFrtgh";
+static NSString * const consumerKey = @"rbNIFbpNJJ14x4MZ9bEB8EpYr";
+static NSString * const consumerSecret = @"kyq66rE7zyg21ak0hSlrRVCOwC5tqND9u8H2DeCflYeMy9W6mX";
+//static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv1o2TKhS1avCdS";
 
 @interface APIManager()
 
@@ -49,10 +51,11 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
     return self;
 }
 
-- (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
+
+- (void)getHomeTimelineWithParam:(NSDictionary *) parameter WithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
     
     [self GET:@"1.1/statuses/home_timeline.json"
-   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+   parameters:parameter progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
        // Success
        NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
        completion(tweets, nil);
@@ -60,6 +63,7 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
        // There was a problem
        completion(nil, error);
    }];
+}
 
 //    [self GET:@"1.1/statuses/home_timeline.json"
 //   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
@@ -82,7 +86,7 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
 //
 //       completion(tweetDictionaries, error);
 //   }];
-}
+
 
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion{
     

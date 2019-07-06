@@ -17,12 +17,11 @@
 #import "LoginViewController.h"
 #import "DetailsView.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ComposeViewControllerDelegate>
-// import Scroll view delegate
+@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UISearchBarDelegate, ComposeViewControllerDelegate>
 @property (strong, nonatomic) NSMutableArray *tweetsArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-//@property (assign, nonatomic) BOOL isMoreDataLoading;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
 
 @end
 
@@ -46,7 +45,7 @@
 - (void) fetchTweets {
     // [APIManager shared] grabs an instance of the API Manager
     // make an API request
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+    [[APIManager shared] getHomeTimelineWithParam:nil WithCompletion:^(NSArray *tweets, NSError *error) {
         // API manager calls the completion handler passing back data
         if (tweets) {
              // numberOfRowsInSection returns the number of items returned from the API
@@ -131,36 +130,45 @@
     [self.tableView reloadData];
 }
 
-//-(void)loadMoreData{
-//    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error){
-//        if (error != nil) {
-//
-//        }
-//        else
-//        {
-//            // Update flag
-//            self.isMoreDataLoading = false;
-//
-//            // ... Use the new data to update the data source ...
-//
-//            // Reload the tableView now that there is new data
-//            [self.tableView reloadData];
-//        }
-//    }];
-//}
-//
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    if(!self.isMoreDataLoading) {
-//        // self.isMoreDataLoading = true;
-//        int scrollViewContentHeight = self.tableView.contentSize.height;
-//        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
-//
-//        // When the user has scrolled past the threshold, start requesting
-//        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
-//            self.isMoreDataLoading = true;
-//            [self loadMoreData];
-//    }
-//    }
-//}
+-(void)loadMoreData{
+    Tweet *lastTweet = [self.tweetsArray lastObject];
+    // NSNumber  *aNum = [NSNumber numberWithInteger: [string integerValue]];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    NSNumber *myNumber = [f numberFromString:lastTweet.idStr];
+    long lastTweetString = [myNumber longValue];
+    long actualID = lastTweetString - 1;
+    NSNumber *maxID = @(actualID);
+    NSDictionary *parameter = @{@"max_id": maxID};
+    [[APIManager shared] getHomeTimelineWithParam:(NSDictionary  *)parameter WithCompletion:^(NSArray *tweets, NSError *error){
+    
+        if (error != nil) {
+        }
+        else
+        {
+            // Update flag
+            self.isMoreDataLoading = false;
+            [self.tweetsArray addObjectsFromArray:tweets];
+            // ... Use the new data to update the data source ...
+
+            // Reload the tableView now that there is new data
+            [self.tableView reloadData];
+        }
+    }];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if(!self.isMoreDataLoading) {
+        // self.isMoreDataLoading = true;
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+
+        // When the user has scrolled past the threshold, start requesting
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            self.isMoreDataLoading = true;
+            [self loadMoreData];
+    }
+    }
+}
 
 @end
